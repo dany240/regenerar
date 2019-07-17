@@ -1,0 +1,29 @@
+
+*{
+
+	margin: 15px
+	background-color:#B04EAD;
+	display:block;
+}
+
+
+#Contenido{
+  overflow:scroll;
+  margin 15px;
+  height: all;
+  width: all;
+  border-color: #FFFFFF
+}
+div[class *= 'alert'] {
+	margin-bottom: 15px;
+	margin-left:  all;
+	max-height: 40px;
+	margin-top: 15px;
+}
+#usuario{
+    text-align: center;
+    width: 50%;
+  
+}
+
+}

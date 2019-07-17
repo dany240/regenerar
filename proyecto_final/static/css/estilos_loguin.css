@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+#usuario{
+	display: table-row;
+	color: #fff;
+	text-align:center;
+}
+#Nav{
+	color: #000;
+    justify-content:flex-end ;
+  }
+
+#table tr {
+  border-bottom: 1px solid #ddd;
+}  
+
+#table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}

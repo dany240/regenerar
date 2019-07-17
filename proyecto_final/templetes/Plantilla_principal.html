@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+{% load staticfiles %}
+{%load staticfiles%}
+<head>
+<link rel="stylesheet" type="text/css" href="{%static 'css/bootstrap.min.css' %}">
+  <script src="{%static 'js/jquery-3.3.1.min.js' %}" ></script>
+  <script src="{%static 'js/popper.min.js' %}"></script>
+  <script src="{%static 'js/bootstrap.min.js'  %}" ></script>
+
+{%block Cabezera%}
+{% endblock %}
+ <meta charset="UTF-8">
+ <title>{%block title%}Pagina de datos proyecto{%endblock%}</title>
+</head>
+  {%block nav%}
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{%url 'retornar'%}">Retornar <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{%endblock%}
+{%block Mensajesdeerror%}
+{% if messages %}
+  <div class="alert {{ message.tags }}  alert-dismissible alert-warning" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+      <p class="display-4" align="center">Errores en el formato</p>
+    {% for message in messages %}
+    {{ message }}
+       {% endfor %}
+  </div>
+{% endif %}
+{%endblock%}
+<div id="Contenido">
+
+  {%block Contenido_pagina%}
+
+  {%endblock%}
+
+
+<div>
+
+  {%block Contenido_adicional%}
+  {%endblock%}
+</div>
+
+</body>
+</html>

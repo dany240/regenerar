@@ -1,0 +1,30 @@
+{%extends 'Plantilla_principal.html'%}
+
+{%block Contenido_pagina%}
+<form method="POST">
+    {% csrf_token %}
+
+   <div>
+   <table class="table table-hover" >
+      <tbody>
+      <tr>
+          {{usuarios.as_p}}
+      </tr>
+      <tr>
+          {{pesonas.as_p}}
+      </tr>
+      <tr>
+
+          {{formas.as_p}}
+      </tr>
+        </tbody>
+
+     </table>
+       <button class="btn btn-success" type="submit">Guardar</button>
+
+   </div>
+
+
+</form>
+
+{%endblock%}
