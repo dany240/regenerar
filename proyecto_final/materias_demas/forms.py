@@ -8,7 +8,7 @@ from .models import *
 from django.utils.translation import gettext, gettext_lazy as _
 
 class formas_entrada_grados(forms.ModelForm):
-    class meta():
+    class Meta:
         model= grado
         fields = [
             'id_grado',
@@ -32,7 +32,7 @@ class formas_entrada_grados(forms.ModelForm):
 
 
 class formas_entrada_materias(forms.ModelForm):
-    class meta():
+    class Meta:
         model=materia
         fields = [
             'id_materia',
@@ -52,7 +52,7 @@ class formas_entrada_materias(forms.ModelForm):
 
 
 class formas_entrada_periodo(forms.ModelForm):
-    class meta():
+    class Meta:
         model=periodo
         fields = [
             'id_periodo',

@@ -26,7 +26,7 @@ def materias(request):
                       })
 
 def grados(request):
-    formas = None
+    formas = formas_entrada_grados
     if (request.method == 'POST'):
         formas = formas_entrada_grados(request.POST)
         if (formas.is_valid()):
