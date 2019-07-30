@@ -60,24 +60,25 @@ class formas_camabiar_personas(forms.ModelForm):
             'cedula': forms.NumberInput(attrs={'class': 'form-control', 'min': '999999999'}),
             'nombre_doc': forms.TextInput(attrs={'class': 'form-control'}),
             'apellido_doc': forms.TextInput(attrs={'class': 'form-control'}),
+            'fecha_nac': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'celular': forms.NumberInput(attrs={'class': 'form-control', 'min': '99999', 'max': '9999999999'}),
             'tipo_doc':forms.Select(attrs={'class': 'form-control'})
 
         }
 class formas_entradas_docentes(forms.ModelForm):
 
-
+# clase donde se ponen todos los atributos a modificar
     class Meta:
-        model = docentes
-        fields = [
+        model = docentes #modelo a referenciar
+        fields = [ # atributos que quiero mostrar
             'grado_carrera',
             'especializacion',
         ]
-        labels = {
+        labels = { # text que muestra en el html
             'grado_carrera': 'Carrera Universitaria',
             'especializacion':'especializacion',
         }
-        widgets = {
+        widgets = {# que tipo de importaciones vamos a hacer con las variables
             'grado_carrera': forms.TextInput(attrs={'class': 'form-control'}),
             'especializacion': forms.Select(attrs={'class': 'form-control'}),
         }

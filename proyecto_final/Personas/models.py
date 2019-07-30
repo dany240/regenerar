@@ -57,9 +57,6 @@ class grado(models.Model):
         managed = False
         db_table = 'grado'
 
-
-
-
 class  materia(models.Model):
     id_materia=models.BigAutoField(primary_key=True,db_column='id_materia',null=False,blank=False)
     nombre=models.CharField(db_column='nombre',max_length=45)
@@ -108,7 +105,6 @@ class grado_estudiantes(models.Model):
     id_grado=models.ForeignKey(grado,related_name='grado_estudiantes1',on_delete=models.PROTECT,db_column='id_grado')
     fec_ini=models.DateField(db_column='fec_ini',blank=False,null=False)
     fec_fin=models.DateField(db_column='fec_fin',blank=False,null=False)
-
     class Meta:
         managed = False
         db_table = 'grado_estudiantes'

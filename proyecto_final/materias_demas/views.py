@@ -10,10 +10,49 @@ from django.http.response import *
 # Create your views here.
 
 def materias(request):
-    return HttpResponse("insert_materia")
+    formas = None
+    if (request.method == 'POST'):
+        formas = formas_entrada_materias(request.POST)
+        if (formas.is_valid()):
+            formas.save()
+            return HttpResponse('<h1> personas guardas </h1>')
+
+    else:
+        formas = formas_entrada_materias
+        return render(request, template_name='html/Create/'
+                                             'personas.html',
+                      context={
+                          'formas': formas
+                      })
 
 def grados(request):
-    return HttpResponse("insert_grado")
+    formas = None
+    if (request.method == 'POST'):
+        formas = formas_entrada_grados(request.POST)
+        if (formas.is_valid()):
+            formas.save()
+            return HttpResponse('<h1> Grados guardados </h1>')
+
+    else:
+        formas = formas_entrada_grados
+        return render(request, template_name='html/Create/'
+                                             'grados.html',
+                      context={
+                          'formas': formas
+                      })
 
 def periodo (request):
-    return HttpResponse("insert_periodo")
+    formas = None
+    if (request.method == 'POST'):
+        formas = formas_entrada_periodo(request.POST)
+        if (formas.is_valid()):
+            formas.save()
+            return HttpResponse('<h1> personas guardas </h1>')
+
+    else:
+        formas = formas_entrada_periodo
+        return render(request, template_name='html/Create/'
+                                             'personas.html',
+                      context={
+                          'formas': formas
+                      })
