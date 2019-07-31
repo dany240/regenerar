@@ -24,7 +24,7 @@ def crear_personas(request:HttpRequest):
     else:
         formas=formas_entrada_persona
         return  render(request,template_name='html/Create/'
-                                             'personas.html',
+                                             'contenido.html',
                        context={
             'formas':formas
         })

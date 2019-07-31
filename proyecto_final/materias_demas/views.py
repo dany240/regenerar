@@ -15,12 +15,12 @@ def materias(request):
         formas = formas_entrada_materias(request.POST)
         if (formas.is_valid()):
             formas.save()
-            return HttpResponse('<h1> personas guardas </h1>')
+            return HttpResponse('<h1> Materias guardadas </h1>')
 
     else:
         formas = formas_entrada_materias
         return render(request, template_name='html/Create/'
-                                             'personas.html',
+                                             'contenido.html',
                       context={
                           'formas': formas
                       })
@@ -36,7 +36,7 @@ def grados(request):
     else:
         formas = formas_entrada_grados
         return render(request, template_name='html/Create/'
-                                             'grados.html',
+                                             'contenido.html',
                       context={
                           'formas': formas
                       })
@@ -47,12 +47,12 @@ def periodo (request):
         formas = formas_entrada_periodo(request.POST)
         if (formas.is_valid()):
             formas.save()
-            return HttpResponse('<h1> personas guardas </h1>')
+            return HttpResponse('<h1> Periodos Guardados </h1>')
 
     else:
         formas = formas_entrada_periodo
         return render(request, template_name='html/Create/'
-                                             'personas.html',
+                                             'contenido.html',
                       context={
                           'formas': formas
                       })

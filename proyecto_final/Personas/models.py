@@ -17,7 +17,7 @@ class personas(models.Model):
     telefono=models.CharField(db_column='telefono',max_length=10)
     fecha_nac=models.DateField(db_column='fecha_nac',blank=False,null=False,max_length=10)
     tipo_doc=models.CharField(choices=tipo_documentos,db_column='tipo_doc',blank=False,null=False,max_length=7)
-    usuario=models.OneToOneField(User,on_delete=models.PROTECT,db_column='users')
+    usuario=models.ForeignKey(User,on_delete=models.PROTECT,db_column='users')
     class Meta:
         managed = False
         db_table = 'personas'
@@ -29,6 +29,7 @@ class estudiantes (models.Model):
     class Meta:
         managed = False
         db_table = 'estudiante'
+
 class docentes(models.Model):
     selecion = (
          ('Normalista','Normalista')
@@ -43,11 +44,11 @@ class docentes(models.Model):
     especializacion= models.CharField(choices=selecion,
     db_column='especializacion',max_length=100)
     grado_carrera= models.CharField(db_column='grado_carrera',max_length=100)
-
-
     class Meta:
         managed = False
         db_table = 'docentes'
+
+
 class grado(models.Model):
     id_grado= models.BigAutoField(primary_key=True,db_column='id_grado',null=False,blank=False)
     nombre=models.CharField(db_column='nombre',max_length=10)
@@ -56,6 +57,7 @@ class grado(models.Model):
     class Meta:
         managed = False
         db_table = 'grado'
+
 
 class  materia(models.Model):
     id_materia=models.BigAutoField(primary_key=True,db_column='id_materia',null=False,blank=False)
@@ -84,6 +86,7 @@ class materia_periodo(models.Model):
         unique_together=('id_periodo','id_material')
 
 class doc_mater_per(models.Model):
+    id=models.AutoField(primary_key=True)
     id_registro=models.ForeignKey(materia_periodo,related_name='materia_per_doc1',on_delete=models.PROTECT,db_column='id_registro')
     id_grado=models.ForeignKey(grado,related_name='materia_per_doc2',on_delete=models.PROTECT,db_column='id_grado')
     id_docente=models.ForeignKey(docentes,related_name='materia_per_doc3',on_delete=models.PROTECT,db_column='id_docente')
@@ -91,7 +94,10 @@ class doc_mater_per(models.Model):
         managed = False
         db_table = 'doc_mater_per'
         unique_together=('id_registro','id_grado','id_docente')
+
+
 class notas(models.Model):
+    id=models.AutoField(primary_key=True)
     id_estudiante=models.ForeignKey(estudiantes,related_name='notas2',on_delete=models.PROTECT,db_column='id_estudiante')
     id_registro=models.ForeignKey(materia_periodo,related_name='notas1',on_delete=models.PROTECT,db_column='id_registro')
     notas=models.DecimalField(decimal_places=2,max_digits=3,default=0)
@@ -101,6 +107,7 @@ class notas(models.Model):
         unique_together=('id_estudiante','id_registro')
 
 class grado_estudiantes(models.Model):
+    id=models.AutoField(primary_key=True)
     id_estudiante=models.ForeignKey(estudiantes,related_name='grado_estudiantes',on_delete=models.PROTECT,db_column='id_estudiante')
     id_grado=models.ForeignKey(grado,related_name='grado_estudiantes1',on_delete=models.PROTECT,db_column='id_grado')
     fec_ini=models.DateField(db_column='fec_ini',blank=False,null=False)
@@ -109,10 +116,3 @@ class grado_estudiantes(models.Model):
         managed = False
         db_table = 'grado_estudiantes'
         unique_together=('id_estudiante','id_grado','fec_ini','fec_fin')
-
-
-
-
-
-
-

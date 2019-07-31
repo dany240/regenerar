@@ -3,7 +3,6 @@ import sys
 sys.path.append(".../proyecto_final")
 
 
-
 # Create your models here.
 
 class grado(models.Model):

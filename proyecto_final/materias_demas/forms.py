@@ -66,7 +66,26 @@ class formas_entrada_periodo(forms.ModelForm):
 
         }
         widgets = {
-            'id_periodo'  :forms.NumberInput(attrs={'class':'form-coontrol'}),
-            'fecha_inicio':forms.DateInput(attrs={'class':'form-control','type':'date'}),
+            'id_periodo': forms.NumberInput(attrs={'class': 'form-coontrol'}),
+            'fecha_inicio': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'fecha_fin': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
+
+
+class ModelosHeredados(forms.ModelChoiceField):
+    labels = ''
+    def _init_(self, queryset, to_field_name, labels='', *kwargs):
+        self.labels = labels
+        super()._init_(queryset=queryset, to_field_name=to_field_name, *kwargs)
+
+    seleccion = ''
+
+    def label_from_instance(self, obj: models.Model):
+        var = None
+        if self.to_field_name == 'id_grado': var = obj.nombre +': '+obj.jornada
+        if self.to_field_name == 'id_materia': var = obj.nombre,
+        if self.to_field_name == 'id_periodo': var = obj.id_periodo,
+        if self.to_field_name == 'id_docente':var.id_docente
+        if self.to_field_name== 'id_registro': var.id_material.id_materia +'periodo'+\
+                                               var.id_periodo.fecha_incio+':'+ var.id_periodo.fecha_fin
+        return ' {}'.format(var)
