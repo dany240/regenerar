@@ -9,7 +9,7 @@ from django.utils.translation import gettext, gettext_lazy as _
 
 class formas_entrada_grados(forms.ModelForm):
     class Meta:
-        model= grado
+        model = grado
         fields = [
             'id_grado',
             'nombre',
@@ -17,58 +17,57 @@ class formas_entrada_grados(forms.ModelForm):
             'salon'
         ]
         labels = {
-            'id_grado' : 'Identificacion de grado',
+            'id_grado': 'Identificacion del grado',
             'nombre': 'Nombre del grado',
-            'jornada' : 'Tipo de jornada',
-            'salon' : 'Numero de salon'
-
+            'jornada': 'Tipo de jornada',
+            'salon': 'Numero de salon'
         }
         widgets = {
-            'id_grado' :forms.NumberInput(attrs={'class':'form-coontrol'}),
-            'nombre' :forms.TextInput(attrs={'class':'form-control'}),
-            'jornada' : forms.Select(attrs={'class': 'form-control'}),
-            'salon' :forms.NumberInput(attrs={'class':'form-coontrol'})
+            'id_grado': forms.NumberInput(attrs={'class': 'form-coontrol'}),
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'jornada': forms.Select(attrs={'class': 'form-control'}),
+            'salon': forms.NumberInput(attrs={'class': 'form-coontrol'})
         }
 
 
 class formas_entrada_materias(forms.ModelForm):
     class Meta:
-        model=materia
+        model = materia
         fields = [
             'id_materia',
             'nombre',
             'duracion'
         ]
         labels = {
-            'id_materia' : 'Identificacion de materia',
-            'nombre' : 'Nombre de la materia',
+            'id_materia': 'Identificacion de materia',
+            'nombre': 'Nombre de la materia',
             'duracion': 'Numero de horas'
         }
         widgets = {
-            'id_materia' :forms.NumberInput(attrs={'class':'form-coontrol'}),
-            'nombre' :forms.TextInput(attrs={'class':'form-control'}),
-            'duracion':forms.NumberInput(attrs={'class':'form-coontrol'})
+            'id_materia': forms.NumberInput(attrs={'class': 'form-coontrol'}),
+            'nombre': forms.TextInput(attrs={'class':'form-control'}),
+            'duracion': forms.NumberInput(attrs={'class':'form-coontrol'})
         }
 
 
 class formas_entrada_periodo(forms.ModelForm):
     class Meta:
-        model=periodo
+        model = periodo
         fields = [
             'id_periodo',
-            'fecha_incio',
+            'fecha_inicio',
             'fecha_fin'
         ]
         labels = {
-            'id_periodo' : 'Identificacion del periodo',
-            'fecha_incio' : 'Fecha de inicio del periodo',
-            'fecha_fin' : 'Fecha final del periodo'
+            'id_periodo': 'Identificacion del periodo',
+            'fecha_inicio': 'Fecha de inicio del periodo',
+            'fecha_fin': 'Fecha final del periodo'
 
         }
         widgets = {
             'id_periodo': forms.NumberInput(attrs={'class': 'form-coontrol'}),
             'fecha_inicio': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'fecha_fin': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'fecha_fin': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
         }
 
 

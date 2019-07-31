@@ -24,7 +24,7 @@ class  materia(models.Model):
 
 class periodo(models.Model):
     id_periodo=models.BigIntegerField(primary_key=True,db_column='id_periodo',null=False,blank=False)
-    fecha_incio=models.DateField(db_column='fecha_incio',null=False,blank=False)
+    fecha_inicio=models.DateField(db_column='fecha_inicio',null=False,blank=False)
     fecha_fin=models.DateField(db_column='fecha_fin',null=False,blank=False)
     class Meta:
         managed = False
