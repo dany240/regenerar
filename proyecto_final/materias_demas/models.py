@@ -14,6 +14,7 @@ class grado(models.Model):
         managed = False
         db_table = 'grado'
 
+
 class  materia(models.Model):
     id_materia=models.BigAutoField(primary_key=True,db_column='id_materia',null=False,blank=False)
     nombre=models.CharField(db_column='nombre',max_length=45)
@@ -22,6 +23,7 @@ class  materia(models.Model):
         managed = False
         db_table = 'materia'
 
+
 class periodo(models.Model):
     id_periodo=models.BigIntegerField(primary_key=True,db_column='id_periodo',null=False,blank=False)
     fecha_inicio=models.DateField(db_column='fecha_inicio',null=False,blank=False)
@@ -29,6 +31,4 @@ class periodo(models.Model):
     class Meta:
         managed = False
         db_table = 'periodo'
-
-
 

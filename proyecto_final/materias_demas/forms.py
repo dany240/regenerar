@@ -11,19 +11,16 @@ class formas_entrada_grados(forms.ModelForm):
     class Meta:
         model = grado
         fields = [
-            'id_grado',
             'nombre',
             'jornada',
             'salon'
         ]
         labels = {
-            'id_grado': 'Identificacion del grado',
             'nombre': 'Nombre del grado',
             'jornada': 'Tipo de jornada',
             'salon': 'Numero de salon'
         }
         widgets = {
-            'id_grado': forms.NumberInput(attrs={'class': 'form-coontrol'}),
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'jornada': forms.Select(attrs={'class': 'form-control'}),
             'salon': forms.NumberInput(attrs={'class': 'form-coontrol'})
@@ -34,17 +31,14 @@ class formas_entrada_materias(forms.ModelForm):
     class Meta:
         model = materia
         fields = [
-            'id_materia',
             'nombre',
             'duracion'
         ]
         labels = {
-            'id_materia': 'Identificacion de materia',
             'nombre': 'Nombre de la materia',
             'duracion': 'Numero de horas'
         }
         widgets = {
-            'id_materia': forms.NumberInput(attrs={'class': 'form-coontrol'}),
             'nombre': forms.TextInput(attrs={'class':'form-control'}),
             'duracion': forms.NumberInput(attrs={'class':'form-coontrol'})
         }

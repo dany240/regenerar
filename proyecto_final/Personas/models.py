@@ -22,6 +22,7 @@ class personas(models.Model):
         managed = False
         db_table = 'personas'
 
+
 class estudiantes (models.Model):
     id_estudiante=models.BigAutoField(primary_key=True,db_column='id_estudiante',null=False,blank=False)
     id_persona=models.ForeignKey(personas,related_name='persona_est',on_delete=models.PROTECT,db_column='id_persona')
@@ -29,6 +30,7 @@ class estudiantes (models.Model):
     class Meta:
         managed = False
         db_table = 'estudiante'
+
 
 class docentes(models.Model):
     selecion = (
@@ -66,6 +68,7 @@ class  materia(models.Model):
     class Meta:
         managed = False
         db_table = 'materia'
+
 
 class periodo(models.Model):
     id_periodo=models.BigIntegerField(primary_key=True,db_column='id_periodo',null=False,blank=False)

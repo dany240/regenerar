@@ -7,7 +7,7 @@ from django.http.response import *
 # Create your views here.
 """clases de prueba"""
 def retornar(request:HttpRequest):
-    return HttpResponse('<h1>largo</h1>')
+    return HttpResponse('<h1>Bienevenido a algo que no sirve</h1>')
 def prueba_html(request:HttpRequest):
     return render(request,'html/pruebas.html')
 # ___________________________________________________
@@ -61,7 +61,8 @@ def crear_docente(request:HttpRequest):
             docentes.save()
             return HttpResponse('<h1> personas guardas </h1>')
 
-        return HttpResponse('<h1> personas no  </h1>')
+        else :
+            return HttpResponse('<h1> personas no  guardadas</h1>')
     else:
         formas=formas_entradas_docentes
         personas_n=formas_entrada_persona
