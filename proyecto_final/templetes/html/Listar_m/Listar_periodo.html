@@ -1,0 +1,31 @@
+{%extends 'Plantilla_principal.html'%}
+{%block Contenido_pagina%}
+
+   <div>
+   <table class="table table-bordered" >
+       {% csrf_token %}
+       <thead>
+          <td>Numero</td>
+          <td>Fecha inicial</td>
+          <td>Fecha final</td>
+       </thead>
+
+      <tbody>
+
+      {%if forma %}
+      {% for period in forma %}
+      <tr>
+          <td>{{period.id_periodo}}</td>
+          <td>{{period.fecha_inicio}}</td>
+          <td>{{period.fecha_fin}}</td>
+      </tr>
+        </tbody>
+       {% endfor %}
+       {% else %}
+       <h1>No hay registros</h1>
+       {% endif %}
+     </table>
+
+   </div>
+
+{%endblock%}

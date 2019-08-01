@@ -1,0 +1,35 @@
+{%extends 'Plantilla_principal.html'%}
+{%block Contenido_pagina%}
+
+   <div>
+   <table class="table table-bordered" >
+       {% csrf_token %}
+       <thead>
+          <td>Identificacion de grado</td>
+          <td>Nombre</td>
+          <td>Jornada</td>
+          <td>Salon</td>
+       </thead>
+
+      <tbody>
+
+      {%if forma %}
+      {% for period in forma %}
+      <tr>
+          <td>{{period.id_grado}}</td>
+          <td>{{period.nombre}}</td>
+          <td>{{period.jornada}}</td>
+          <td>{{period.salon}}</td>
+          <td> <a class="btn btn-success"
+          href="{%url 'actual_grad' period.id_grado%}"> Actualizar</a></td>
+      </tr>
+        </tbody>
+       {% endfor %}
+       {% else %}
+       <h1>No hay registros</h1>
+       {% endif %}
+     </table>
+
+   </div>
+
+{%endblock%}

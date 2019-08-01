@@ -9,6 +9,7 @@ from django.utils.translation import gettext, gettext_lazy as _
 
 class formas_entrada_grados(forms.ModelForm):
     class Meta:
+        elecciones=(('Mañana','Mañana'),('Tarde','Tarde'))
         model = grado
         fields = [
             'nombre',
@@ -22,7 +23,7 @@ class formas_entrada_grados(forms.ModelForm):
         }
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'jornada': forms.Select(attrs={'class': 'form-control'}),
+            'jornada': forms.Select(attrs={'class': 'form-control'},choices=elecciones),
             'salon': forms.NumberInput(attrs={'class': 'form-coontrol'})
         }
 
@@ -36,7 +37,7 @@ class formas_entrada_materias(forms.ModelForm):
         ]
         labels = {
             'nombre': 'Nombre de la materia',
-            'duracion': 'Numero de horas'
+            'duracion': 'Numero de horas por dia'
         }
         widgets = {
             'nombre': forms.TextInput(attrs={'class':'form-control'}),
@@ -49,18 +50,18 @@ class formas_entrada_periodo(forms.ModelForm):
         model = periodo
         fields = [
             'id_periodo',
-            'fecha_inicio',
+            'fecha_incio',
             'fecha_fin'
         ]
         labels = {
             'id_periodo': 'Identificacion del periodo',
-            'fecha_inicio': 'Fecha de inicio del periodo',
+            'fecha_incio': 'Fecha de inicio del periodo',
             'fecha_fin': 'Fecha final del periodo'
 
         }
         widgets = {
             'id_periodo': forms.NumberInput(attrs={'class': 'form-coontrol'}),
-            'fecha_inicio': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'fecha_incio': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'fecha_fin': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
         }
 
@@ -77,8 +78,28 @@ class ModelosHeredados(forms.ModelChoiceField):
         var = None
         if self.to_field_name == 'id_grado': var = obj.nombre +': '+obj.jornada
         if self.to_field_name == 'id_materia': var = obj.nombre,
-        if self.to_field_name == 'id_periodo': var = obj.id_periodo,
-        if self.to_field_name == 'id_docente':var.id_docente
-        if self.to_field_name== 'id_registro': var.id_material.id_materia +'periodo'+\
-                                               var.id_periodo.fecha_incio+':'+ var.id_periodo.fecha_fin
+        if self.to_field_name == 'id_periodo': var = obj.fecha_incio + ':'+ obj.fecha_fin,
+        if self.to_field_name == 'id_docente':var=obj.id_docente,
+        if self.to_field_name== 'id_registro': var= obj.id_material.id_materia +'periodo'+\
+                                               obj.id_periodo.fecha_incio+':'+ var.id_periodo.fecha_fin
+        if self.to_field_name =='id_estudiante':var= obj.id_persona.nombre +'--'+obj.id_persona.apellido
+
         return ' {}'.format(var)
+class entrada_periodo_materia(forms.ModelForm):
+    class Meta:
+        fields=[
+            'id_material',
+            'id_periodo'
+        ]
+        labels={
+            'id_material':'Materia',
+            'id_periodo':'periodo'
+        }
+        widgets={
+            'id_materia':ModelosHeredados(queryset=materia.objects.all(),
+                                          to_field_name='id_material',
+                                          ),
+            'id_periodo':ModelosHeredados(queryset=periodo.objects.all()
+                                          ,to_field_name='id_periodo',
+        )
+        }
