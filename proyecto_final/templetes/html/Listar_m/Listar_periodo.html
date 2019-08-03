@@ -5,7 +5,7 @@
    <table class="table table-bordered" >
        {% csrf_token %}
        <thead>
-          <td>Numero</td>
+          <td>Identificacion de periodo</td>
           <td>Fecha inicial</td>
           <td>Fecha final</td>
        </thead>
@@ -16,8 +16,12 @@
       {% for period in forma %}
       <tr>
           <td>{{period.id_periodo}}</td>
-          <td>{{period.fecha_inicio}}</td>
+          <td>{{period.fecha_incio}}</td>
           <td>{{period.fecha_fin}}</td>
+          <td> <a class="btn btn-success"
+          href="{%url 'actual_period' period.id_periodo%}">Editar</a></td>
+          <td> <a class="btn btn-success"
+          href="{%url 'eliminar_period' period.id_periodo%}">Eliminar</a></td>
       </tr>
         </tbody>
        {% endfor %}
@@ -27,5 +31,5 @@
      </table>
 
    </div>
-
+<a class="btn btn-success" href="{%url 'periodo' %}">NUEVO</a>
 {%endblock%}

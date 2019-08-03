@@ -1,0 +1,38 @@
+{%extends 'Plantilla_principal.html'%}
+{%block Contenido_pagina%}
+
+   <div>
+       <form method="post">
+         <table class="table table-bordered" >
+       {% csrf_token %}
+       <thead>
+       {% if forma.nombre %}
+       <td><h2>Desea eliminar el registro de {{forma.nombre}}?</h2></td>
+       {% else %}
+       <td><h2>Desea eliminar el registro del periodo {{forma.id_periodo}}?</h2></td>
+       {% endif %}
+       </thead>
+
+      <tbody>
+      <tr>
+          <td> <button type="submit" class="btn btn-danger"> Eliminar</button>
+              <a class="btn btn-success"
+                 {% if forma.nombre %}
+                    {%if forma.id_grado%}
+                         href="{%url 'list_grad'%}">Cancelar</a></td>
+                    {% else %}
+                         href="{%url 'list_mater'%}">Cancelar</a></td>
+                    {% endif %}
+                 {% else %}
+                     href="{%url 'list_period'%}">Cancelar</a></td>
+                 {% endif %}
+      </tr>
+        </tbody>
+     </table>
+
+       </form>
+
+
+   </div>
+
+{%endblock%}
