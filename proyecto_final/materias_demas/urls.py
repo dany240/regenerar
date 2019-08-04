@@ -7,6 +7,13 @@ from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns=[
     #url(),
+    url(r'^loguear',login,name='login'),
+#    url(r'^registrar',registrar_usuario,name='registre'),
+    url(r'^pruebas',prueba_html,name='pruebas'),
+    url(r'^retornar$',retornar,name='retornar'),
+    url(r'^listar_persona$',listar_persona,name='listar_persona'),
+    url(r'^crear_personas$',crear_personas,name='crear_personas'),
+    url(r'^crear_docentes$',crear_docente,name='crear_docentes'),
     url(r'^cargar_materia',cargar_materias,name='materia'), #como se realza una url
     url(r'^cargar_grado',cargar_grados,name='grado'),
     url(r'^cargar_periodo',cargar_periodo,name='periodo'),

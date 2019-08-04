@@ -4,17 +4,19 @@
 <html lang="es">
 {% load staticfiles %}
 {%load staticfiles%}
+
 <head>
 <link rel="stylesheet" type="text/css" href="{%static 'css/bootstrap.min.css' %}">
 
   <script src="{%static 'js/jquery-3.3.1.min.js' %}" ></script>
   <script src="{%static 'js/popper.min.js' %}"></script>
   <script src="{%static 'js/bootstrap.min.js'  %}" ></script>
+
 {%block Cabecera%}
-{% endblock %}
  <meta charset="UTF-8">
  <title>{%block title%}Pagina de datos proyecto{%endblock%}</title>
 </head>
+{% endblock %}
   {%block nav%}
 
 <body>

@@ -1,14 +1,28 @@
-from django.db import models
-from django.contrib.auth.models import *
+from django.contrib.auth.base_user import BaseUserManager
+from django.db import models, transaction
+from django.conf import settings
+from django.contrib.auth.models import Group,AbstractUser,AbstractBaseUser
 # Create your models here.
 
+
+
+
+class bitacora(models.Model):
+    tabla=models.TextField(db_column='tabla')
+    usuario=models.TextField(db_column='usuario')
+    fecha=models.DateTimeField(db_column='fecha')
+    operacion=models.TextField(db_column='operacion')
+    valor_inicial=models.TextField(db_column='valor_inicial')
+    valor_final=models.TextField(db_column='valor_final')
+    class Meta:
+        managed=False
+        db_table='bitacora'
 
 class personas(models.Model):
     tipo_documentos=(
         ('CC','Cedula')
         ,('TI','Tarjeta identidad')
         ,('OT','Otros')
-
     )
     id_personas=models.BigIntegerField(primary_key=True,db_column='id_personas',null=False,blank=False)
     nombre=models.TextField(db_column='nombre',blank=False,null=False)
@@ -17,7 +31,7 @@ class personas(models.Model):
     telefono=models.CharField(db_column='telefono',max_length=10)
     fecha_nac=models.DateField(db_column='fecha_nac',blank=False,null=False,max_length=10)
     tipo_doc=models.CharField(choices=tipo_documentos,db_column='tipo_doc',blank=False,null=False,max_length=7)
-    usuario=models.ForeignKey(User,on_delete=models.PROTECT,db_column='users',related_name='usuario_materia')
+    usuario=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT,db_column='users',related_name='usuarios')
     class Meta:
         managed = False
         db_table = 'personas'
@@ -26,7 +40,7 @@ class personas(models.Model):
 class estudiantes (models.Model):
     id_estudiante=models.BigAutoField(primary_key=True,db_column='id_estudiante',null=False,blank=False)
     id_persona=models.ForeignKey(personas,related_name='persona_est',on_delete=models.PROTECT,db_column='id_persona')
-    grado_esc=models.IntegerField(db_column='grado_esc',max_length=3,null=False,blank=False)
+    grado_esc=models.IntegerField(db_column='grado_esc',null=False,blank=False)
     class Meta:
         managed = False
         db_table = 'estudiante'
@@ -43,7 +57,7 @@ class docentes(models.Model):
     )
     id_docentes=models.BigAutoField(primary_key=True,db_column='id_docente',null=False,blank=False)
     id_persona=models.ForeignKey(personas,related_name='persona_doc',on_delete=models.PROTECT,db_column='id_persona')
-    especializacion= models.CharField(choices=selecion,
+    especializacion = models.CharField(choices=selecion,
     db_column='especializacion',max_length=100)
     grado_carrera= models.CharField(db_column='grado_carrera',max_length=100)
     class Meta:
@@ -64,7 +78,7 @@ class grado(models.Model):
 class  materia(models.Model):
     id_materia=models.BigAutoField(primary_key=True,db_column='id_materia',null=False,blank=False)
     nombre=models.CharField(db_column='nombre',max_length=45)
-    duracion=models.IntegerField(db_column='duracion',max_length=3,default=0)
+    duracion=models.IntegerField(db_column='duracion',default=0)
     class Meta:
         managed = False
         db_table = 'materia'
@@ -88,6 +102,7 @@ class materia_periodo(models.Model):
         db_table = 'materia_periodo'
         unique_together=('id_periodo','id_material')
 
+
 class doc_mater_per(models.Model):
     id=models.AutoField(primary_key=True)
     id_registro=models.ForeignKey(materia_periodo,related_name='materia_per_doc1',on_delete=models.PROTECT,db_column='id_registro')
@@ -108,6 +123,7 @@ class notas(models.Model):
         managed = False
         db_table = 'notas'
         unique_together=('id_estudiante','id_registro')
+
 
 class grado_estudiantes(models.Model):
     id=models.AutoField(primary_key=True)

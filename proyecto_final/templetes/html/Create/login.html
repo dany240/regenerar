@@ -1,26 +1,53 @@
-<!DOCTYPE html>
-<html>
-<head>
+{%extends 'Plantilla_principal.html'%}
+{%block Cabecera%}
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Titulo-->
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="{%static 'css/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
 </head>
+{% endblock %}
+
+  {%block nav%}
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+      </li>
+    </ul>
+  </div>
+</nav>
+{%endblock%}
+{%block Contenido_pagina%}
+<style>
+input {
+    border-radius: 10px;
+    background-color: #eee;
+    border: 1px solid #808080;
+    outline: none;
+}
+
+label{
+    font-weight: bold;
+}
+</style>
+
 <body class="login">
     <div id="container">
-        <div id="header">Login
-        </div>
+        <div id="header">Login</div>
         <div id="content">
-            <form>
-            	<p><label >Nombre de Usuario:</label>
-            	<input type="text" name="username"></p>
-            	<a>Contraseña:</a>
-            	<input type="password" name="password">
+            <form method="POST">
+                {% csrf_token %}
+            	<p><label>Nombre de Usuario:</label>
+            	<input style="font-family: Verdana" class="text_user" type="text" size="44" maxlength="30" name="username"></p>
+            	<p><label>Contraseña:</label>
+            	<input class="password_user" type="password" size="50" name="password"></p>
             	<div id="lower">
-                	<p><input type="submit" value="Entrar"></p>
+                    <p></p>
+                	<p ><button type="submit" class="btn btn-outline-success btn-lg btn-block ">Entrar</button></p>
             	</div>
         	</form>
         </div>
     </div>
 </body>
-</html>
+{%endblock%}
