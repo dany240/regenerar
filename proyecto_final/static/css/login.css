@@ -1,0 +1,28 @@
+body.login {
+    background: #D8E7F7;
+}
+
+.login #header {
+    text-align: center;
+    height: auto;
+    padding: 15px 16px;
+    justify-content: center;
+    background: #3399FF;
+    font-weight: bold;
+}
+
+
+.login #content {
+    padding: 20px 20px 0;
+}
+
+.login #container {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 28em;
+    min-width: 300px;
+    margin: 100px auto;
+}
+

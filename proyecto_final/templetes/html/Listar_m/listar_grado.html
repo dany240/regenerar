@@ -1,0 +1,37 @@
+{%extends 'Plantilla_principal.html'%}
+{%block Contenido_pagina%}
+
+   <div>
+   <table class="table table-bordered" >
+       {% csrf_token %}
+       <thead>
+          <td>Nombre</td>
+          <td>Jornada</td>
+          <td>Salon</td>
+       </thead>
+
+      <tbody>
+
+      {%if forma %}
+      {% for period in forma %}
+      <tr>
+          <td>{{period.nombre}}</td>
+          <td>{{period.jornada}}</td>
+          <td>{{period.salon}}</td>
+          <td> <a class="btn btn-success"
+          href="{%url 'actual_grad' period.id_grado%}">Editar</a></td>
+          <td> <a class="btn btn-success"
+          href="{%url 'eliminar_grad' period.id_grado%}"> Eliminar</a></td>
+      </tr>
+
+        </tbody>
+       {% endfor %}
+
+       {% else %}
+       <h1>No hay registros</h1>
+       {% endif %}
+     </table>
+
+   </div>
+<a class="btn btn-success" href="{%url 'grado' %}">NUEVO</a>
+{%endblock%}

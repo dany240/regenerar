@@ -2,6 +2,7 @@
 
 {%block Contenido_pagina%}
 <form method="POST">
+    {% csrf_token %}
    <div>
    <table class="table table-hover" >
       <tbody>
@@ -18,5 +19,4 @@
 
 </form>
 
-<h1>el contenido</h1>
 {%endblock%}

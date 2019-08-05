@@ -20,8 +20,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    #path('admin/', admin.site.urls),
-    url('',include('Personas.urls'),name="crear_personas"),
-    url('/', include('materias_demas.urls'), name="crear_demas")
+    #url('',{'template_name':'login.html'}, name='login'),
+    #url('',include('Personas.urls'),name="crear_personas"),
+    url('', include('materias_demas.urls'), name="crear_demas")
 
 ]

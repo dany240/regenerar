@@ -1,0 +1,33 @@
+{%extends 'Plantilla_principal.html'%}
+{%block Contenido_pagina%}
+
+   <div>
+   <table class="table table-bordered" >
+       {% csrf_token %}
+       <thead>
+          <td>Nombre</td>
+          <td>Duracion por dia</td>
+       </thead>
+
+      <tbody>
+
+      {%if forma %}
+      {% for period in forma %}
+      <tr>
+          <td>{{period.nombre}}</td>
+          <td>{{period.duracion}}</td>
+          <td> <a class="btn btn-success"
+          href="{%url 'actual_mater' period.id_materia%}">Editar</a></td>
+          <td> <a class="btn btn-success"
+          href="{%url 'eliminar_mater' period.id_materia%}">Eliminar</a></td>
+      </tr>
+        </tbody>
+       {% endfor %}
+       {% else %}
+       <h1>No hay registros</h1>
+       {% endif %}
+     </table>
+
+   </div>
+<a class="btn btn-success" href="{%url 'materia' %}">NUEVO</a>
+{%endblock%}
