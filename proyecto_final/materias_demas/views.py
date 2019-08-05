@@ -207,8 +207,14 @@ def login (request:HttpRequest):
     #    return render(request, template_name='html/Create/login.html', context={'forma': user})
 
 
-def periodo_materia_insertar(request):
-    pass
+def periodo_materia_insertar(request:HttpRequest):
+    formas = None
+    if (request.method == 'POST'):
+        formas = entrada_periodo_materia
+        if formas.is_valid():
+            formas.save()
+        else:
+            return HttpResponse('<h1> Datos no guardados</h1>')
 
 
 def crear_personas(request:HttpRequest):
