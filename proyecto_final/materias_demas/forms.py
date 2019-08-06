@@ -45,26 +45,24 @@ class formas_entrada_materias(forms.ModelForm):
         }
 
 
-class formas_entrada_periodo(forms.ModelForm):
+class formas_entrada_lectivo(forms.ModelForm):
     class Meta:
-        model = periodo
+        model = lectivo
         fields = [
-            'id_periodo',
+            'years',
             'fecha_incio',
             'fecha_fin'
         ]
         labels = {
-            'id_periodo': 'Identificacion del periodo',
-            'fecha_incio': 'Fecha de inicio del periodo',
-            'fecha_fin': 'Fecha final del periodo'
-
+            'years': 'Año lectivo',
+            'fecha_incio': 'Fecha de inicio del año lectivo',
+            'fecha_fin': 'Fecha final del año lectivo'
         }
         widgets = {
-            'id_periodo': forms.NumberInput(attrs={'class': 'form-coontrol'}),
+            'years': forms.NumberInput(attrs={'class': 'form-coontrol'}),
             'fecha_incio': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'fecha_fin': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
         }
-
 
 class ModelosHeredados(forms.ModelChoiceField):
     labels = ''
@@ -78,32 +76,52 @@ class ModelosHeredados(forms.ModelChoiceField):
         var = None
         if self.to_field_name == 'id_grado': var = obj.nombre +': '+obj.jornada
         if self.to_field_name == 'id_materia': var = obj.nombre,
-        if self.to_field_name == 'id_periodo': var = obj.fecha_incio + ':'+ obj.fecha_fin,
+        if self.to_field_name == 'id_periodo': var = str(obj.fecha_incio) + ':'+ str(obj.fecha_fin),
         if self.to_field_name == 'id_docente':var=obj.id_docente,
         if self.to_field_name== 'id_registro': var= obj.id_material.id_materia +'periodo'+\
                                                obj.id_periodo.fecha_incio+':'+ var.id_periodo.fecha_fin
         if self.to_field_name =='id_estudiante':var= obj.id_persona.nombre +'--'+obj.id_persona.apellido
+        if self.to_field_name =='id': var=obj.id
 
         return ' {}'.format(var)
 
 
+class formas_entrada_periodo(forms.ModelForm):
+    class Meta:
+        model = periodo
+        fields = [
+            'fecha_incio',
+            'fecha_fin',
+            'lectivo'
+        ]
+        labels = {
+            'fecha_incio': 'Fecha de inicio del periodo',
+            'fecha_fin': 'Fecha final del periodo',
+            'lectivo': 'Periodo lectivo en el año'
+        }
+        widgets = {
+            'fecha_incio': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'fecha_fin': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
+        }
+
+    lectivo = ModelosHeredados(queryset=lectivo.objects.all(),
+                                   to_field_name='id', )
+
 class entrada_periodo_materia(forms.ModelForm):
     class Meta:
+        model=materia_periodo
         fields=[
             'id_material',
             'id_periodo'
         ]
         labels={
-            'id_material':'Materia',
-            'id_periodo':'periodo'
+            'id_material':'Materias',
+            'id_periodo':'Periodos'
         }
-        widgets={
-            'id_materia':ModelosHeredados(queryset=materia.objects.all(),
-                                          to_field_name='id_material',
-                                          ),
-            'id_periodo':ModelosHeredados(queryset=periodo.objects.all()
-                                          ,to_field_name='id_periodo',)
-        }
+    id_material =ModelosHeredados(queryset=materia.objects.all(),
+                               to_field_name='id_materia',)
+    id_periodo= ModelosHeredados(queryset=periodo.objects.all()
+                               , to_field_name='id_periodo', )
 
 class formas_entrada_persona(forms.ModelForm):
     class Meta:

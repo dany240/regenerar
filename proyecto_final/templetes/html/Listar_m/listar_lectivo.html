@@ -1,0 +1,37 @@
+{%extends 'Plantilla_principal.html'%}
+{%block Contenido_pagina%}
+
+   <div>
+   <table class="table table-bordered" >
+       {% csrf_token %}
+       <thead>
+          <td>Año lectivo</td>
+          <td>Fecha de inicio</td>
+          <td>Fecha final</td>
+       </thead>
+
+      <tbody>
+
+      {%if forma %}
+      {% for period in forma %}
+      <tr>
+          <td>{{period.years}}</td>
+          <td>{{period.fecha_incio}}</td>
+          <td>{{period.fecha_fin}}</td>
+          <td> <a class="btn btn-success"
+          href="{%url 'actual_lectiv' period.id%}">Editar</a></td>
+          <td> <a class="btn btn-success"
+          href="{%url 'eliminar_lectiv' period.id%}"> Eliminar</a></td>
+      </tr>
+
+        </tbody>
+       {% endfor %}
+
+       {% else %}
+       <h1>No hay registros</h1>
+       {% endif %}
+     </table>
+
+   </div>
+<a class="btn btn-success" href="{%url 'lectivo' %}">NUEVO</a>
+{%endblock%}

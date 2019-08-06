@@ -12,8 +12,21 @@
         </tbody>
 
      </table>
-       <button class="btn btn-success" type="submit">Guardar</button>
-
+        <button class="btn btn-success" type="submit">Guardar</button>
+        <a class="btn btn-success"
+                 {% if forma.nombre %}
+                    {% if forma.id_grado %}
+                         href="{%url 'list_grad'%}">Cancelar</a></td>
+                    {% else %}
+                         href="{%url 'list_mater'%}">Cancelar</a></td>
+                    {% endif %}
+                 {% else %}
+                    {% if forma.id %}
+                         href="{%url 'list_lectiv'%}">Cancelar</a></td>
+                    {% else %}
+                         href="{%url 'list_period'%}">Cancelar</a></td>
+                    {% endif %}
+                 {% endif %}
    </div>
 
 
