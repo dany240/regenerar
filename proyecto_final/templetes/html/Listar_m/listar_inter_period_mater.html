@@ -1,0 +1,35 @@
+{%extends 'Plantilla_principal.html'%}
+{%block Contenido_pagina%}
+
+   <div>
+   <table class="table table-bordered" >
+       {% csrf_token %}
+       <thead>
+          <td>Identificacion del periodo</td>
+          <td>Identificacion de la materia</td>
+       </thead>
+
+      <tbody>
+
+      {%if forma %}
+      {% for period in forma %}
+      <tr>
+          <td>{{period.id_periodo}}</td>
+          <td>{{period.id_material}}</td>
+          <td> <a class="btn btn-success"
+          href="{%url 'actual_period_mater' period.id_registro%}">Editar</a></td>
+          <td> <a class="btn btn-success"
+          href="{%url 'eliminar_period_mater' period.id_registro%}"> Eliminar</a></td>
+      </tr>
+
+        </tbody>
+       {% endfor %}
+
+       {% else %}
+       <h1>No hay registros</h1>
+       {% endif %}
+     </table>
+
+   </div>
+<a class="btn btn-success" href="{%url 'periodo_materia' %}">NUEVO</a>
+{%endblock%}

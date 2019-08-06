@@ -60,6 +60,12 @@ def cargar_periodo (request):
         if (formas.is_valid()):
             formas.save()
             return redirect('list_period')
+        else:
+            return render(request, template_name='html/Create/'
+                                                 'contenido.html',
+                          context={
+                              'formas': formas
+                          })
     else:
         formas = formas_entrada_periodo
         return render(request, template_name='html/Create/'
@@ -67,6 +73,36 @@ def cargar_periodo (request):
                       context={
                           'formas': formas
                       })
+
+
+def cargar_lectivo (request):
+    formas = None
+    if (request.method == 'POST'):
+        formas = formas_entrada_lectivo(request.POST)
+        if (formas.is_valid()):
+            formas.save()
+            return redirect('list_lectiv')
+    else:
+        formas = formas_entrada_lectivo
+        return render(request, template_name='html/Create/'
+                                             'contenido.html',
+                      context={
+                          'formas': formas
+                      })
+
+def cargar_periodo_materia(request:HttpRequest):
+    formas = entrada_periodo_materia
+    if (request.method == 'POST'):
+        formas = entrada_periodo_materia(request.POST)
+        if formas.is_valid():
+            formas.save()
+            return redirect('list_period_mater')
+
+    return render(request, template_name='html/Create/'
+                                                 'contenido.html',
+                          context={
+                              'formas': formas
+                          })
 
 
 def periodo_actualizar(request:HttpRequest,id_periodo):
@@ -87,6 +123,24 @@ def periodo_actualizar(request:HttpRequest,id_periodo):
                           'formas': forma
                       })
 
+
+def lectivo_actualizar(request:HttpRequest,id):
+    lectivo_ant= lectivo.objects.get(id=id)
+    forma=formas_entrada_lectivo(instance=lectivo_ant)#passando informacion al form
+    if(request.method =='POST'):
+        forma=formas_entrada_lectivo(request.POST,instance=lectivo_ant)
+        if(forma.is_valid()):
+            forma.save()
+            return redirect('list_lectiv')
+        else:
+            messages.add_message(request)
+    else:
+        return render(request,
+                      template_name='html/Create/'
+                                    'contenido.html',
+                      context={
+                          'formas': forma
+                      })
 
 def grado_actualizar(request:HttpRequest, id_grado):
     grado_ant = grado.objects.get(id_grado=id_grado)
@@ -126,6 +180,23 @@ def materia_actualizar(request:HttpRequest, id_materia):
                           'formas': forma
                       })
 
+def periodo_materia_actualizar(request:HttpRequest, id_registro):
+    materia_ant = materia_periodo.objects.get(id_registro=id_registro)
+    formas = entrada_periodo_materia(instance=materia_ant)
+    if (request.method == 'POST'):
+        formas=entrada_periodo_materia(request.POST, instance=materia_ant)
+        if formas.is_valid():
+            formas.save()
+            return redirect('list_period_mater')
+        else:
+            messages.add_message(request)
+    else:
+        return render(request, template_name='html/Create/'
+                                                 'contenido.html',
+                          context={
+                              'formas': formas
+                          })
+
 
 def eliminar_periodo(request:HttpRequest, id_periodo):
     period = periodo.objects.get(id_periodo=id_periodo)
@@ -140,8 +211,21 @@ def eliminar_periodo(request:HttpRequest, id_periodo):
                       )
 
 
+def eliminar_lectivo(request:HttpRequest, id):
+    lectiv = lectivo.objects.get(id=id)
+    if (request.method == 'POST'):
+        lectiv.delete()
+        return redirect('list_lectiv')
+    else:
+        return render(request,
+                      template_name='html/delete_m/'
+                                    'delete_m.html',
+                      context={'forma': lectiv}
+                      )
+
+
 def eliminar_materia(request:HttpRequest, id_materia):
-    mater = materia.objects.get(id_materia=id_materia)
+    mater = materia.objects.get(id_materia = id_materia)
     if (request.method == 'POST'):
         mater.delete()
         return redirect('list_mater')
@@ -154,7 +238,7 @@ def eliminar_materia(request:HttpRequest, id_materia):
 
 
 def eliminar_grado(request:HttpRequest, id_grado):
-    grad = grado.objects.get(id_grado=id_grado)
+    grad = grado.objects.get(id_grado = id_grado)
     if (request.method == 'POST'):
         grad.delete()
         return redirect('list_grad')
@@ -165,10 +249,25 @@ def eliminar_grado(request:HttpRequest, id_grado):
                       context={'forma': grad}
                       )
 
+def eliminar_periodo_materia(request:HttpRequest, id_registro):
+    period_mater = materia_periodo.objects.get(id_registro=id_registro)
+    if (request.method == 'POST'):
+        period_mater.delete()
+        return redirect('list_period_mater')
+    else:
+        return render(request, template_name='html/delete_m/'
+                                                 'delete_m.html',
+                          context={
+                              'formas': period_mater
+                          })
 
 def listar_periodo(request):
     period = periodo.objects.all()
     return render(request, template_name='html/Listar_m/Listar_periodo.html', context={'forma': period})
+
+def listar_lectivo(request):
+    lectiv = lectivo.objects.all()
+    return render(request, template_name='html/Listar_m/listar_lectivo.html', context={'forma': lectiv})
 
 
 def listar_grado(request):
@@ -179,6 +278,11 @@ def listar_grado(request):
 def listar_materia(request):
     mater = materia.objects.all()
     return render(request, template_name='html/Listar_m/listar_materia.html', context={'forma': mater})
+
+def listar_periodo_materia(request):
+    period_mater = materia_periodo.objects.all()
+    return render(request, template_name='html/Listar_m/listar_inter_period_mater.html', context={'forma': period_mater})
+
 
 #def registrar_usuario (request):
 #    form = None
@@ -194,27 +298,19 @@ def listar_materia(request):
 
 def login (request:HttpRequest):
     if (request.method == 'POST'):
-        redirect('list_grad')
+        username = request.POST['username']
+        pasword = request.POST['password']
+        user = authenticate(request, username=username, password=pasword)
+        if user is not None:
+            login(request, user)
+            return redirect('list_grad')
+        else:
+            return render(request, template_name='html/Create/login.html', context={'forma': user})
     else:
         return render(request, template_name='html/Create/login.html')
-    #username = request.POST['username']
-    #pasword = request.POST['password']
-    #user = authenticate(request, username=username, password=pasword)
-    #if user is not None:
-    #    login(request, user)
-    #    return redirect('list_grad')
-    #else:
-    #    return render(request, template_name='html/Create/login.html', context={'forma': user})
 
 
-def periodo_materia_insertar(request:HttpRequest):
-    formas = None
-    if (request.method == 'POST'):
-        formas = entrada_periodo_materia
-        if formas.is_valid():
-            formas.save()
-        else:
-            return HttpResponse('<h1> Datos no guardados</h1>')
+
 
 
 def crear_personas(request:HttpRequest):
